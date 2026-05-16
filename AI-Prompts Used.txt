@@ -1,0 +1,207 @@
+```text id="a4v5w9"
+ADDITIONAL AI PROMPTS & REASONING USED
+
+=========================================================
+13. GIBBERISH INPUT DETECTION PROMPT
+=========================================================
+
+Prompt:
+
+"You are a Clarity Agent responsible for detecting invalid or meaningless user queries.
+
+Determine whether the user's input:
+- contains understandable business intent
+- contains a recognizable company name
+- is gibberish, random characters, or nonsensical text
+
+Examples of gibberish:
+- asdasd
+- qweqwe
+- zxczxc
+- 123123
+- !!!@@@
+
+If the query is gibberish, interrupt the workflow and ask the user to provide a meaningful business-related query.
+
+Return ONLY valid JSON.
+
+JSON Format:
+{
+  'clarity_status': 'clear' OR 'needs_clarification',
+  'gibberish_detected': true OR false,
+  'reason': '',
+  'suggested_question': ''
+}"
+
+Reasoning:
+- Prevents unnecessary API calls.
+- Improves system robustness.
+- Simulates production-grade input validation.
+- Reduces hallucinations from meaningless prompts.
+
+=========================================================
+14. SPELL CORRECTION PROMPT
+=========================================================
+
+Prompt:
+
+"You are responsible for detecting and correcting minor spelling mistakes in company names.
+
+Examples:
+- Tedla → Tesla
+- Gojggle → Google
+- Amazom → Amazon
+
+Rules:
+- Correct only if confidence is high.
+- If multiple possible companies exist, ask for clarification.
+- Preserve original user intent.
+
+Return ONLY valid JSON.
+
+JSON Format:
+{
+  'original_input': '',
+  'corrected_company': '',
+  'correction_confidence': 0,
+  'status': 'corrected' OR 'clarification_needed'
+}"
+
+Reasoning:
+- Improves usability.
+- Makes the system feel more intelligent and human-friendly.
+- Prevents failed searches due to typos.
+- Mimics real-world AI assistants like Google Search and Perplexity.
+
+=========================================================
+15. REPORT FORMATTING PROMPT
+=========================================================
+
+Prompt:
+
+"You are a professional business intelligence report generator.
+
+Create a visually clean and professional markdown report.
+
+The report must include:
+- Main title
+- Executive summary
+- Section headings
+- Bullet points
+- Tables where useful
+- Confidence indicators
+- Final assessment
+- Sources section
+
+Formatting Requirements:
+- Use markdown headings properly
+- Use concise paragraphs
+- Highlight important findings
+- Maintain professional tone
+
+The report should resemble a consulting or market research report."
+
+Reasoning:
+- Improves readability.
+- Makes final output presentation-quality.
+- Demonstrates professional synthesis capability.
+- Enhances video demo appearance.
+
+=========================================================
+16. MODEL FALLBACK / RATE LIMIT HANDLING PROMPT
+=========================================================
+
+Prompt:
+
+"You are a system reliability controller for a multi-agent AI workflow.
+
+If the primary model fails due to:
+- rate limits
+- quota exhaustion
+- timeout
+- API failure
+
+Automatically:
+1. log the failure
+2. switch to a fallback model
+3. continue execution gracefully
+
+Generate logs in this format:
+
+{
+  'system': 'WARNING',
+  'event': 'MODEL_FALLBACK',
+  'message': 'Parent model rate-limited; shifting to less powerful model llama-3.1-8b-instant',
+  'fallback_model': 'llama-3.1-8b-instant'
+}"
+
+Reasoning:
+- Prevents workflow crashes.
+- Demonstrates production-level resilience.
+- Simulates enterprise AI system reliability handling.
+- Makes the architecture more realistic.
+
+=========================================================
+17. RETRY AFTER FAILED RESEARCH PROMPT
+=========================================================
+
+Prompt:
+
+"If research quality is insufficient:
+- retry search with refined keywords
+- prioritize reliable sources
+- gather missing financial or competitor information
+- improve confidence score where possible
+
+Maximum retries allowed: 3.
+
+After 3 failed attempts:
+- generate the best possible report
+- include a warning indicating partial data."
+
+Reasoning:
+- Demonstrates adaptive workflow behavior.
+- Makes LangGraph loopback logic meaningful.
+- Prevents infinite loops.
+- Improves report quality.
+
+=========================================================
+18. SYSTEM LOGGING PROMPTS
+=========================================================
+
+Examples Used:
+
+[INFO] Clarity Agent analyzing query...
+[INFO] Spell correction applied: Tedla → Tesla
+[WARNING] Low confidence detected
+[INFO] Validator requesting retry
+[WARNING] Parent model rate-limited; shifting to less powerful model llama-3.1-8b-instant
+[INFO] Synthesis Agent generating final report
+
+Reasoning:
+- Makes terminal/demo output more realistic.
+- Helps debugging.
+- Simulates enterprise observability systems.
+- Improves presentation quality during demonstration.
+
+=========================================================
+19. OVERALL PROMPT ENGINEERING GOAL
+=========================================================
+
+The additional prompts were designed to make the assistant behave more like a real-world AI research platform instead of a simple chatbot.
+
+The focus was on:
+- resilience
+- reliability
+- intelligent input handling
+- graceful degradation
+- professional reporting
+- production-style workflow behavior
+
+These improvements significantly enhanced:
+- user experience
+- robustness
+- realism
+- demonstration quality
+- fault tolerance
+```
